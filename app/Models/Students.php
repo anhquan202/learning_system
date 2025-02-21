@@ -19,11 +19,30 @@ class Students extends Model
         'suspended_end',
         'description'
     ];
+
+    /* Relationships*/
     public function person()
     {
         return $this->belongsTo(Person::class);
     }
+    public function parents()
+    {
+        return $this->belongsToMany(Parents::class, 'parents_students', 'parent_id', 'student_id');
+    }
+    public function semesters()
+    {
+        return $this->belongsToMany(Semesters::class, 'students_semesters', 'student_id', 'semester_id');
+    }
+    public function classes()
+    {
+        return $this->belongsToMany(Classes::class, 'students_classes', 'student_id', 'class_id');
+    }
+    public function subjects()
+    {
+        return $this->belongsToMany(Subjects::class, 'students_subjects', 'student_id', 'semester_id');
+    }
 
+    // Generate automaticly student_code
     protected function studentCode()
     {
         $year = date('Y');

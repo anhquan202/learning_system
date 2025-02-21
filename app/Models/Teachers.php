@@ -19,4 +19,13 @@ class Teachers extends Model
         'description',
         'department_id',
     ];
+
+    public function classes()
+    {
+        return $this->belongsToMany(teachers::class, 'teachers_classes', 'class_id', 'subject_id');
+    }
+    public function subjects()
+    {
+        return $this->belongsToMany(Subjects::class, 'teachers_subjects', 'teacher_id', 'subject_id');
+    }
 }

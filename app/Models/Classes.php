@@ -16,4 +16,18 @@ class Classes extends Model
         'max_students',
         'desciption'
     ];
+
+    /* Relationships */
+    public function teachers()
+    {
+        return $this->belongsToMany(Teachers::class, 'teachers_classes', 'class_id', 'teacher_id');
+    }
+    public function subjects()
+    {
+        return $this->belongsToMany(Subjects::class, 'classes_subjects', 'class_id', 'subject_id');
+    }
+    public function students()
+    {
+        return $this->belongsToMany(Students::class, 'students_classes', 'class_id', 'student_id');
+    }
 }

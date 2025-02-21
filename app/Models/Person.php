@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Person extends Model
 {
+    use HasFactory;
     protected $table = 'people';
     protected $primaryKey = 'person_id';
     public $incrementing = false;
@@ -23,10 +25,21 @@ class Person extends Model
     protected $hidden = [
         'password'
     ];
+    /*  Relationships */
     public function students()
     {
         return $this->hasOne(Students::class);
     }
+    public function parents()
+    {
+        return $this->hasOne(Parents::class);
+    }
+    public function teachers()
+    {
+        return $this->hasOne(Teachers::class);
+    }
+
+    /* Format data before inserting    */
     protected function firstName()
     {
         return Attribute::make(

@@ -15,4 +15,25 @@ class Subjects extends Model
         'subject_name',
         'description',
     ];
+
+    /* Relationships */
+    public function semesters()
+    {
+        return $this->belongsToMany(Semesters::class, 'semesters_subjects', 'subject_id', 'semester_id');
+    }
+
+    public function students()
+    {
+        return $this->belongsToMany(Students::class, 'students_subjects', 'subject_id', 'student_id');
+    }
+
+    public function classes()
+    {
+        return $this->belongsToMany(Classes::class, 'classes_subjects', 'subject_id', 'class_id');
+    }
+
+    public function teachers()
+    {
+        return $this->belongsToMany(Teachers::class, 'teachers_subjects', 'subject_id', 'teacher_id');
+    }
 }

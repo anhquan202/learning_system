@@ -9,7 +9,7 @@ class Semesters extends Model
     protected $table = 'semesters';
     protected $primaryKey = 'semester_id';
     public $incrementing = true;
-    protected $keyType = 'unsignedInteger';
+    protected $keyType = 'unsignedBigInteger';
     protected $fillable = [
         'semester_id',
         'student_code',
@@ -17,4 +17,12 @@ class Semesters extends Model
         'end_time',
         'description'
     ];
+    public function students()
+    {
+        return $this->belongsToMany(Students::class, 'students_semester', 'semester_id', 'student_id');
+    }
+    public function subjects()
+    {
+        return $this->belongsToMany(Subjects::class, 'semesters_subjects', 'semester_id', 'subject_id');
+    }
 }
