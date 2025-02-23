@@ -28,4 +28,12 @@ class Teachers extends Model
     {
         return $this->belongsToMany(Subjects::class, 'teachers_subjects', 'teacher_id', 'subject_id');
     }
+    public function quanlifications()
+    {
+        return $this->hasMany(Qualifications::class);
+    }
+    public function positions()
+    {
+        return $this->belongsToMany(Positions::class, 'teachers_position', 'teacher_id', 'position_id');
+    }
 }
