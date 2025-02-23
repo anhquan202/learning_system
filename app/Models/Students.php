@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Students extends Model
 {
+    use HasFactory;
     protected $table = 'students';
     protected $primaryKey = 'person_id';
     public $incrementing = false;
@@ -43,11 +45,13 @@ class Students extends Model
     }
 
     // Generate automaticly student_code
-    protected function studentCode()
+    protected static function boot()
     {
-        $year = date('Y');
-        return Attribute::make(
-            get: fn() => "{$year}" . rand(1000, 9999),
-        );
+        parent::boot();
+        static::creating(function ($student) {
+            if (empty($student->student_code)) {
+                $student->student_code = 's' . rand(1000, 9999);
+            }
+        });
     }
 }
